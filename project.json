@@ -1,0 +1,8 @@
+{
+    "package_name": "com.minij.washerv15",
+    "package_path": "com.minij.washerv15",
+    "models": "minij.washer.v8",
+    "min_sdk_api_level":10003,
+    "developer_id": "571295033",
+    "version":4
+}
