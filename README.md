@@ -1,7 +1,7 @@
-# com.minij.jumpv12
+# com.minij.washerv15
 
 #### 介绍
-新版本 小吉壁挂洗衣机 插件
+新版本 小米6c洗衣机 插件
 
 #### 安装教程
 
@@ -16,8 +16,8 @@
 
  · 执行 npm start --reset-cache
 
- · 打开米家开发版APP，设置插件model: minij.washer.v12
+ · 打开米家开发版APP，设置插件model: minij.washer.v15
 
  · 配置node server IP
 
- · 设置包名 com.minij.jumpv12 最后 确定
+ · 设置包名 com.minij.washerv15 最后 确定
