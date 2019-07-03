@@ -209,7 +209,7 @@ class ComponentMainPage extends Component {
                         <Image style={{  alignItems: 'center', justifyContent: 'center' , width:Platform.OS === "ios" ?  113 :366, height: Platform.OS === "ios" ? 22:72}}  source={ Host.locale.language == 'en'? require( "../Resources/logo_en.png") : require( "../Resources/logo.png") }/>
                         </View>
                       }
-                      onPressLeft={() => { Package.exit() }} 
+                      onPressLeft={() => { Package.exit() }}
                       onPressRight={() => { this.onSetting()}}
                       onPressRight2={() => { this.onShow()}}
                   />
