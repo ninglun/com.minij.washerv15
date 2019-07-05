@@ -5,7 +5,7 @@ import ComponentPowerCostPage from '../Main/ComponentPowerCostPage';
 import ComponentWaterCostPage from '../Main/ComponentWaterCostPage';
 import ComponentWashMenuPage from '../Main/ComponentWashMenuPage';
 import ComponentMoreMenu from '../Main/ComponentMoreMenu';
-import ComponentOrderPage from '../Main/ComponentOrderPage'
+import ComponentOrderPage from '../Main/ComponentOrderPage';
 import {TitleBarWhite} from "miot/ui";
 
 const AppNavigator = createStackNavigator(
@@ -16,19 +16,6 @@ const AppNavigator = createStackNavigator(
         ComponentWaterCostPage:ComponentWaterCostPage,
         ComponentMoreMenu:ComponentMoreMenu,
         ComponentOrderPage:ComponentOrderPage,
-
-
-    },
-    {
-        initialRouteName: 'ComponentMainPage',
-        navigationOptions: ({ navigation }) => {
-            return {
-                header: <TitleBarWhite  style={{ backgroundColor: '#fff' }}
-                                       onPressLeft={() => {
-                                           navigation.goBack();
-                                       }} />,
-            };
-        },
     }
     );
 

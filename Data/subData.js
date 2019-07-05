@@ -9,17 +9,9 @@ import {
     cycleAction,
     time_remainAction,
     child_lockAction,
-
-
-    // time_totalAction,
-    // delay_real_timeAction,
-    // speedAction,
-    // tempAction,
-    // water_levelAction,
-    // rinse_timeAction,
-    // extra_timeAction,
-     faultAction,
-    // volumeAction,
+    rinse_timeAction,
+    faultAction,
+    volumeAction,
 } from '../Redux/Actions';
 
 const subPropList = [
@@ -59,7 +51,12 @@ export function subData() {
      * 此处订阅属性,如需添加新的属性，
      * 需要添加新的订阅，不得一次订阅多条，那样会指数级增加
      */
-    Device.getDeviceWifi().subscribeMessages("prop.state",
+    Device.getDeviceWifi().subscribeMessages(
+        // "prop.state",
+        // "prop.process",
+        // "prop.cycle",
+        // "prop.time_remain",
+        // "prop.child_lock",
         "prop.process",
         "prop.cycle",
         "prop.time_remain",
@@ -77,6 +74,7 @@ export function subData() {
         'prop.panel',
         'prop.dirty_type',
         'prop.dirty_level'
+
             ).then(subcription => {
             msgSubscription = subcription;
         });
@@ -93,7 +91,7 @@ export function subData() {
      * 此处接收订阅 Device.getDeviceWifi().subscribeMessages(singleProp);
      */
     subscription = DeviceEvent.deviceReceivedMessages.addListener((device, map, res) => {
-         console.log("deviceReceivedMessage 1: ", map, map.get('prop.state'));
+         //console.log("deviceReceivedMessage 1: ", map, map.get('prop.state'));
         if (map.get('prop.state')) {
             Store.dispatch(stateAction(map.get('prop.state')[0]))
         }
@@ -109,45 +107,19 @@ export function subData() {
         if (map.get('prop.child_lock')) {
             Store.dispatch(child_lockAction(map.get('prop.child_lock')[0]))
         }
-        // if (map.get('prop.time_total')) {
-        //     Store.dispatch(time_totalAction(map.get('prop.time_total')[0]))
-        // }
-        // if (map.get('prop.delay_real_time')) {
-        //     Store.dispatch(delay_real_timeAction(map.get('prop.delay_real_time')[0]))
-        // }
-        // if (map.get('prop.speed')) {
-        //     Store.dispatch(speedAction(map.get('prop.speed')[0]))
-        // }
-        // if (map.get('prop.temp')) {
-        //     Store.dispatch(tempAction(map.get('prop.temp')[0]))
-        // }
-        // if (map.get('prop.water_level')) {
-        //     Store.dispatch(water_levelAction(map.get('prop.water_level')[0]))
-        // }
-        // if (map.get('prop.rinse_time')) {
-        //     Store.dispatch(rinse_timeAction(map.get('prop.rinse_time')[0]))
-        // }
-        // if (map.get('prop.extra_time')) {
-        //     Store.dispatch(extra_timeAction(map.get('prop.extra_time')[0]))
-        // }
+
+        if (map.get('prop.rinse_time')) {
+            Store.dispatch(rinse_timeAction(map.get('prop.rinse_time')[0]))
+        }
+
         if (map.get('prop.fault')) {
             Store.dispatch(faultAction(map.get('prop.fault')[0]))
         }
-        // if (map.get('prop.volume')) {
-        //     Store.dispatch(volumeAction(map.get('prop.volume')[0]))
-        // }
+        if (map.get('prop.volume')) {
+            Store.dispatch(volumeAction(map.get('prop.volume')[0]))
+        }
 
     });
 
-    // DeviceEvent.deviceNameChanged.addListener((device) => {
-    //     console.log('deviceNameChanged: ', device);
-    // });
 
-    // DeviceEvent.deviceStatusChanged.addListener((device) => {
-    //     console.log('deviceStatusChanged: '.device);
-    // })
-
-    // DeviceProperties.addListener(subList, (deviceProperties) => {
-    //     console.log('eventSubscription: ', deviceProperties);
-    // });
 }

@@ -5,7 +5,7 @@ import {
     Text,
     View,
     Image,
-    TouchableOpacity,
+    TouchableHighlight,
     PixelRatio,
 } from "react-native";
 import PropTypes from "prop-types";
@@ -25,7 +25,7 @@ import PropTypes from "prop-types";
         };
 
         return (
-            <TouchableOpacity
+            <TouchableHighlight
                 onPress={this.props.onPress}
                 underlayColor={this.props.underlayColor}
                 style={btn_style}
@@ -33,7 +33,7 @@ import PropTypes from "prop-types";
                 <Text style={[styles.text, {fontSize: this.props.fontSize, opacity: 0.8, color: '#000000'}]}>
                     {this.props.text}
                 </Text>
-            </TouchableOpacity>
+            </TouchableHighlight>
         );
     }
 }

@@ -1,25 +1,15 @@
 import { Device, Service } from 'miot';
 import {
     propDeviceAction,
-
     stateAction,
     processAction,
     cycleAction,
     time_remainAction,
     child_lockAction,
-    time_totalAction,
-    delay_real_timeAction,
-    speedAction,
-    tempAction,
-    water_levelAction,
     rinse_timeAction,
-    extra_timeAction,
     faultAction,
     volumeAction,
-    dry_setAction,
-    panelAction,
-    dirty_typeAction,
-    dirty_levelAction,
+
 } from '../Redux/Actions';
 
 import WASH_MODES from './Mode_Wash';
@@ -32,25 +22,13 @@ const propListFromDevice = [
     "cycle",
     "time_remain",
     "child_lock",
-
+    "volume"
 ];
 
 const propListFromCloud = [
-    // "props.state",
-    // "props.process",
-    // "props.cycle",
-    // "props.time_remain",
-    // "props.child_lock",
-
-   // 'prop.time_total',
-    //'prop.delay_real_time',
-    // 'prop.speed',
-    // 'prop.temp',
-    // 'prop.water_level',
     'prop.rinse_time',
-    // 'prop.extra_time',
-     'prop.fault',
-    // 'prop.volume',
+    'prop.fault',
+    //'prop.volume',
 ]
 
 /**
@@ -65,6 +43,7 @@ function getPropFromDevice() {
                 console.log('get_prop resultDevice<<<<<<<<<: ', result.result);
                 let resultArray = result.result;
                 if (resultArray.length === propListFromDevice.length) {
+                    console.log('get_prop ok');
                     Store.dispatch(propDeviceAction(resultArray));
                 }
             }
@@ -123,10 +102,6 @@ function getPropFromCloud() {
                             Store.dispatch(child_lockAction(propList[prop_key]));
                             continue;
                         }
-                        // if (prop_key === 'prop.time_total') {
-                        //     Store.dispatch(time_totalAction(propList[prop_key]));
-                        //     continue;
-                        // }
 
                         if (prop_key === 'prop.rinse_time') {
                             if (propList[prop_key] !== null){
@@ -143,10 +118,18 @@ function getPropFromCloud() {
                             }else {
                                 Store.dispatch(faultAction('none'));
                             }
-                             console.log('fault key in getData: ', propList[prop_key]);
+                            // console.log('fault key in getData: ', propList[prop_key]);
 
                             continue;
+                        }if (prop_key === 'prop.volume') {
+                            if (propList[prop_key] !== null){
+                                Store.dispatch(volumeAction(propList[prop_key]));
+                            }else {
+                                Store.dispatch(volumeAction('1'));
+                            }
+                            continue;
                         }
+
 
 
                     }
@@ -163,7 +146,7 @@ export function getDataInterval() {
     timer = setInterval(() => {
         getPropFromDevice();
         getPropFromCloud();
-    }, 8000);
+    }, 10000);
 }
 export function removeDataInterval() {
     timer && timer.remove();

@@ -20,7 +20,7 @@ class PluginApp extends Component {
         })
     }
     ComponentWillUnmount() {
-        this.subscription && this.subscription.remove()
+        this.subscription && this.subscription.remove();    //注销通知
     }
     render() {
         return (
@@ -32,6 +32,7 @@ class PluginApp extends Component {
 }
 
 Package.entry(PluginApp, () => {
+
     getDataInterval();
-    //subData();
+    subData();
 });

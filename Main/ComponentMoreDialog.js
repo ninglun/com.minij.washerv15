@@ -26,15 +26,14 @@ const {width, height} = Dimensions.get('window');
 import {Host} from 'miot';
 import {ImageButton, LoadingDialog} from 'miot/ui';
 import {getString} from '../Util/Strings';
-import {RkSwitch} from "react-native-ui-kitten";
 import { connect } from "react-redux";
-import Store from "../Redux/Store";
-import {volumeAction} from "../Redux/Actions";
-import {setVolume} from '../Data/setData';
+//import Store from "../Redux/Store";
 import ComponentMoreMenu from "../Main/ComponentMoreMenu";
+import {getProcessProcessing} from "../Util/WashTools";
 
 const TIME = 300;//动画时长
 class ComponentMoreDialog extends Component {
+
     constructor(props) {
         super(props);
         var ds = new ListView.DataSource({
@@ -272,7 +271,13 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (store) => ({
-    volume: store.mDevice.volume,
+    state: store.mDevice.state,
+    processing: getProcessProcessing(store.mDevice.process),
+    cycle: store.mDevice.cycle,
+    time_remain:store.mDevice.time_remain,
+    child_lock: store.mDevice.child_lock,
+    fault: store.mDevice.fault,
+    isFirstOpen: store.isFirstOpen.isFirstOpen
 });
 
 export default connect(mapStateToProps)(ComponentMoreDialog);

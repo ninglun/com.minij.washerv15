@@ -38,8 +38,8 @@ export default class GridMItem extends Component {
             <View style={propStyles}>
                 <Text style={{ fontFamily:'D-DINCondensed',color:'black',fontSize:42, marginRight:6, opacity:0.8}}>{text}</Text>
                 <View>
-                    <Text style={{color:'gray',fontSize:14, marginTop:12, opacity:0.8}}>{this.state.unit}</Text>
-                    <Text style={{color:'gray',fontSize:14, marginTop:4, opacity:0.8}}>{this.state.detail}</Text>
+                    <Text style={{fontFamily:'D-DIN' ,color:'gray',fontSize:14, marginTop:12, opacity:0.8}}>{this.state.unit}</Text>
+                    <Text style={{fontFamily:'D-DIN' ,color:'gray',fontSize:14, marginTop:4, opacity:0.8}}>{this.state.detail}</Text>
                 </View>
             </View>
         );

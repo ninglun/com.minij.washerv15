@@ -142,6 +142,10 @@ const mapStateToProps = (store) => ({
     option: getProcessOption(store.mDevice.process),
     processing: getProcessProcessing(store.mDevice.process),
     cycle: store.mDevice.cycle,
+    time_remain:store.mDevice.time_remain,
+    child_lock: store.mDevice.child_lock,
+    fault: store.mDevice.fault,
+    isFirstOpen: store.isFirstOpen.isFirstOpen
 });
 
 export default connect(mapStateToProps)(WavePage);

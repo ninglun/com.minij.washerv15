@@ -5,28 +5,15 @@ let init_device_props = {
     process: "option:load,prewash,wash,rinse,spin,dry;processing:wash", // “option:load,prewash,wash,rinse,spin,dry;processing:wash”
     cycle: "dailywash", // “dailywash” / “quick” / “delicate” / “down”...
     time_remain: "0048",  // 0098
-    //delay_real_time: "2018-06-04 16:58",  // “2015-06-04 16:58”
-
     child_lock: "off",  // “on”/”off”
-
     fault: "NONE", // “NONE”/“_F”/“dF”/“tF”/“S...
-    // add_clothes: "false",  //“true”/”false”.
-    // panel: "dailywash,quick,delicate,down,rinse,spin,cotton,synthetic,shirt",
-    //
-    // speed: "no spin", // “no spin”/”400rpm”/”600rpm”/”800rpm”/”1000rpm”/”1200rpm”/”1400rpm”
-    // temp: "cold",  // “cold”/”20”/”30”/”40”/”60”/”90”
-    // water_level: "low", // “high”/”middle”/”low”
-    // dry_set: "none", // “none”/ “moist”/“normal”/“extra”/ “030”/“060”/“090” /“120”/“150”/“180”
-    rinse_time: "1",  // “1”/”2”/”3”/”4”/”5” /”6”
-
-    // dirty_level: "low",  // “high”/”middle”/”low”
-    // extra_time: "0",  // ”0”/”1”/“2”/”3”/”4”/“5”/”6”/”7”
-    // dirty_type: "none", //“baby_food”/“ bj_clay”/“ blue_ink”/“blueberry”/“ chili_oil”/“chocolate”...
-    // volume: "00", // “00”----“30”: 00表示没有声音；非00表示有声音
+    rinse_time: "3",  // “1”/”2”/”3”/”4”/”5” /”6”
 };
 
 function mDevice(device_props = init_device_props, action) {
+
     if (action.type === "propDeviceAction") {
+        console.log('---> propDeviceAction action.type ' + action.type +"  "+ action.state);
         return {
             ...device_props,
             state: action.state,
@@ -34,47 +21,65 @@ function mDevice(device_props = init_device_props, action) {
             cycle: action.cycle,
             time_remain: action.time_remain,
             child_lock: action.child_lock,
+            fault: action.fault,
         };
     } else if (action.type === "stateAction") {
+        console.log('---> stateAction action.type ' + action.type +"  "+ action.state);
         return {
             ...device_props,
             state: action.state
         };
     } else if (action.type === "processAction") {
+        console.log('---> processAction action.type ' + action.type +"  "+ action.process);
         return {
             ...device_props,
             process: action.process
         };
     } else if (action.type === "cycleAction") {
+        console.log('---> cycleAction action.type ' + action.type +"  "+ action.cycle);
         return {
             ...device_props,
             cycle: action.cycle
         };
     } else if (action.type === "time_remainAction") {
+        console.log('---> time_remainAction action.type ' + action.type +"  "+ action.time_remain);
         return {
             ...device_props,
             time_remain: action.time_remain
         };
     } else if (action.type === "child_lockAction") {
+        console.log('---> child_lockAction action.type ' + action.type +"  "+ action.child_lock);
         return {
             ...device_props,
             child_lock: action.child_lock
         };
     } else if (action.type === "faultAction") {
+        console.log('---> faultAction action.type ' + action.type +"  "+ action.fault);
         return {
             ...device_props,
             fault: action.fault
         };
-    } else if (action.type === "rinse_timeAction") {
+    }
+    else if (action.type === "rinse_timeAction") {
+        console.log('---> rinse_timeAction action.type ' + action.type +"  "+ action.rinse_time);
         return {
             ...device_props,
             rinse_time: action.rinse_time
         };
-    }  else return { ...device_props };
+    }
+    else if (action.type === "volumeAction") {
+        console.log('---> volumeAction action.type ' + action.type +"  "+ action.volume);
+        return {
+            ...device_props,
+            volume: action.volume
+        };
+    }
+    else return { ...device_props };
 }
 
 function buttonEnable(enableState = { buttonEnable: true }, action) {
     if (action.type === "buttonAction") {
+        console.log('---> buttonAction action.type ' + action.type);
         return {
             ...enableState,
             buttonEnable: action.buttonEnable
@@ -84,6 +89,7 @@ function buttonEnable(enableState = { buttonEnable: true }, action) {
 
 function isFirstOpen(isFirstOpenState = { isFirstOpen: true }, action) {
     if (action.type === 'isFirstOpenAction') {
+        console.log('---> isFirstOpenAction action.type ' + action.type);
         return {
             ...isFirstOpenState,
             isFirstOpen: action.isFirstOpen

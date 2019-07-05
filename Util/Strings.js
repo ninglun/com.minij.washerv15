@@ -463,7 +463,7 @@ export const strings = {
         cubicMeters: 'm³',
         day: '日',
         week: '周',
-        month: '月 ',
+        month: '月',
         highTemp: '高温 ',
         yes: '是',
         no: '否',

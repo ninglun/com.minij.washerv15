@@ -194,7 +194,7 @@ class ComponentOrderPage extends Component {
     }
   jumpToMenu() {
     this.props.navigation.navigate('ComponentWashMenuPage', {
-        superPage: 'OrderPage',
+        superPage: 'ComponentOrderPage',
     })
   }
 
@@ -353,8 +353,8 @@ const mapStateToProps = (store) => ({
     state: store.mDevice.state,
     processing: getProcessProcessing(store.mDevice.process),
     cycle: store.mDevice.cycle,
-    child_lock: store.mDevice.child_lock,
     time_remain:store.mDevice.time_remain,
+    child_lock: store.mDevice.child_lock,
     fault: store.mDevice.fault,
 });
 

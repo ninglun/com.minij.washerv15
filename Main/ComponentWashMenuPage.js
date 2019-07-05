@@ -20,16 +20,16 @@ import { getString } from '../Util/Strings';
 import {setCycle, setStartPause} from "../Data/setData";
 import Swiper from 'react-native-swiper'
 import {getIntTimeRemain, getProcessOption, getProcessProcessing} from "../Util/WashTools";
-import WASH_MODES from "../Data/Mode_Wash";
-import Picker from "rmc-picker/lib/Picker";
-import {
-    setDirtyLevel, setDrySet,
-    setExtraTime,
-    setRinseTime,
-    setSpeed,
-    setTemp,
-    setWaterLevel
-} from "../Data/setData";
+// import WASH_MODES from "../Data/Mode_Wash";
+// import Picker from "rmc-picker/lib/Picker";
+// import {
+//     setDirtyLevel, setDrySet,
+//     setExtraTime,
+//     setRinseTime,
+//     setSpeed,
+//     setTemp,
+//     setWaterLevel
+// } from "../Data/setData";
 import GridMItem from "./GridMItem";
 let window = Dimensions.get('window');
 
@@ -92,9 +92,10 @@ var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         if (nextProps.state == 'off' || nextProps.state == 'run' || nextProps.state == 'delay'  || nextProps == 'eoc') {
             this.props.navigation.replace('ComponentMainPage');
             return false;
-        } else{
+        }
+        else{
             return nextProps !== this.props || nextState !== this.state;
-            }
+        }
 
     }
     render() {
@@ -140,7 +141,7 @@ var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
                     source={require("../Resources/wash_menu_background.png")}
                     resizeMode='stretch'/>
                 <TitleBarWhite
-                    title= {this.props.navigation.state.params.superPage =='MainPage' ? getString('chooseWash'):  getString('delay')}
+                    title= {this.props.navigation.state.params.superPage =='ComponentMainPage' ? getString('chooseWash'):  getString('delay')}
                     onPressLeft={() => {this.goBack()}}
                 />
                         <Swiper
@@ -207,11 +208,10 @@ var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
                         height={40 * RATIO}
                         fontSize={16}
                         underlayColor={'#edeff0'}
-                        text={this.props.navigation.state.params.superPage =='MainPage' ? getString('startWash'):  getString('determine')}
+                        text={this.props.navigation.state.params.superPage =='ComponentMainPage' ? getString('startWash'):  getString('determine')}
                         onPress={this._onBottomButtonClicked.bind(this)}
                     />
                 </View>
-                {/*{this._paramDetailModeView()}*/}
             </View>
         );
     }
@@ -228,7 +228,7 @@ var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     //开始洗涤
     _onBottomButtonClicked() {
-        if (this.props.navigation.state.params.superPage =='MainPage' ) {
+        if (this.props.navigation.state.params.superPage =='ComponentMainPage' ) {
             setStartPause('true','run',()=>this.props.navigation.replace('ComponentMainPage'))
         }else {
             this.props.navigation.goBack();
@@ -321,9 +321,10 @@ const mapStateToProps = (store) => ({
     state: store.mDevice.state,
     processing: getProcessProcessing(store.mDevice.process),
     cycle: store.mDevice.cycle,
-    child_lock: store.mDevice.child_lock,
     time_remain:store.mDevice.time_remain,
+    child_lock: store.mDevice.child_lock,
     fault: store.mDevice.fault,
+    isFirstOpen: store.isFirstOpen.isFirstOpen
 
 });
 

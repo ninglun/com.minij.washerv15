@@ -26,13 +26,9 @@ let window = Dimensions.get("window");
 const RATIO = (window.width / 360) > 1.5 ? 1.5 : (window.width / 360);
 const btnWidth = 54 * RATIO;
 const WASH_PHASE = {
-    "delay" : '预约',
-    'prewash' : '预洗',
-    'mainwash' : getString('mainWash'),
+    'wash' : getString('mainWash'),
     'rinse' : getString('rinseWash'),
     'spin' :  getString('spin'),
-    'finish' : '结束',
-    'pause' : getString('pause'),
     
 };
 class ComponentMainPage extends Component {
@@ -40,18 +36,20 @@ class ComponentMainPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            washState: 'powerOff',
             washPhase: '',
             dialogVisible: false
         };
     };
     shouldComponentUpdate(nextProps, nextState) {
+        console.log('---> Main shouldComponentUpdate');
             return nextProps !== this.props || nextState !== this.state;
     }
     componentWillMount() {
+        console.log("调用了componentWillMount");
         getDataOnce();
     }
     componentDidMount() {
+        console.log("调用了componentDidMount");
         Host.storage.load(['PrivateAndLicense'])
             .then((result) => {
                 if (result == '') {
@@ -86,7 +84,10 @@ class ComponentMainPage extends Component {
             });
     }
     componentWillReceiveProps(nextProps) {
-
+        console.log("调用了componentWillReceiveProps");
+        if (nextProps.state !== 'standby') {
+            //Package.exit();
+        }
     }
 
 
@@ -98,16 +99,7 @@ class ComponentMainPage extends Component {
 
     //跳转到设置页面
     onSetting() {
-        // 此只有IOS可用，ANDROID不可用，
-
-        if (Platform.OS == 'ios'){
-            //Host.ui.openNewMorePage();
-            this.props.navigation.navigate('ComponentMoreMenu');
-        }else {
            this.setState({dialogVisible: true});
-
-        }
-
     }
     //分享截图
     onShow(){
@@ -128,7 +120,7 @@ class ComponentMainPage extends Component {
     _onOpenWashMenuPage(){
 
         this.props.navigation.navigate('ComponentWashMenuPage', {
-            superPage: 'MainPage',
+            superPage: 'ComponentMainPage',
         });
 
     }
@@ -222,7 +214,7 @@ class ComponentMainPage extends Component {
                       title= { 
                       <Image style={{alignItems: 'center', justifyContent: 'center' , width:Platform.OS === "ios" ?  113 :366, height: Platform.OS === "ios" ? 22:72}}  source={Host.locale.language == 'en'? require( "../Resources/logo_en.png") : require("../Resources/logo.png")}/>}
                       onPressLeft={() => { Package.exit() }}
-                      
+
                   />
               )
           }else {
@@ -246,6 +238,8 @@ class ComponentMainPage extends Component {
         var bottom = null;//底部;
         let washPhase;
         washPhase = WASH_PHASE[this.props.processing];
+        console.log("wash phase:"+this.props.processing);
+        console.log("cycle:"+this.props.cycle);
         // 如果是处在报警状态；
         if (this.props.state === 'fault') {
             return (
@@ -302,6 +296,7 @@ class ComponentMainPage extends Component {
                 break;
             case 'run':
             {
+
                 topContent = (
                     <Text style={styles.font16}>{'WASH_MODELS[this.props.cycle].title'}</Text>
                 );
@@ -317,6 +312,7 @@ class ComponentMainPage extends Component {
                         </Text>
                         <View style={[styles.circle_bottom_container, {marginTop: 16 * RATIO}]}>
                             <Text style={styles.font16}>{washPhase}</Text>
+
                         </View>
                     </View>
                 );
@@ -344,6 +340,7 @@ class ComponentMainPage extends Component {
 
             case 'delay':
             {
+
                 topContent = (
                     <Text style={styles.font16}>{'WASH_MODELS[this.props.cycle].title'}</Text>
                 );
@@ -575,9 +572,10 @@ const mapStateToProps = (store) => ({
     state: store.mDevice.state,
     processing: getProcessProcessing(store.mDevice.process),
     cycle: store.mDevice.cycle,
-    child_lock: store.mDevice.child_lock,
     time_remain:store.mDevice.time_remain,
+    child_lock: store.mDevice.child_lock,
     fault: store.mDevice.fault,
+    isFirstOpen: store.isFirstOpen.isFirstOpen
 });
 
 export default connect(mapStateToProps)(ComponentMainPage);
