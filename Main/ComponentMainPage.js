@@ -298,7 +298,7 @@ class ComponentMainPage extends Component {
             {
 
                 topContent = (
-                    <Text style={styles.font16}>{'WASH_MODELS[this.props.cycle].title'}</Text>
+                    <Text style={styles.font16}>{WASH_MODELS[this.props.cycle].title}</Text>
                 );
                 circleContent = (
                     <View style={styles.circle_container}>
@@ -342,7 +342,7 @@ class ComponentMainPage extends Component {
             {
 
                 topContent = (
-                    <Text style={styles.font16}>{'WASH_MODELS[this.props.cycle].title'}</Text>
+                    <Text style={styles.font16}>{WASH_MODELS[this.props.cycle].title}</Text>
                 );
                 circleContent = (
                     <View style={styles.circle_container}>
@@ -380,7 +380,7 @@ class ComponentMainPage extends Component {
             case 'pause':
             {
                 topContent = (
-                    <Text style={styles.font16}>{'WASH_MODELS[this.props.cycle].title'}</Text>
+                    <Text style={styles.font16}>{WASH_MODELS[this.props.cycle].title}</Text>
                 );
                 circleContent = (
                     <View style={styles.circle_container}>
