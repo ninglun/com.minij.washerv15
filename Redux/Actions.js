@@ -21,7 +21,6 @@ export function propDeviceAction(propList) {
         cycle: propList[2],
         time_remain: propList[3],
         child_lock: propList[4],
-        volume: propList[5],
 	}
 }
 export function stateAction(state) {
@@ -73,19 +72,5 @@ export function faultAction(fault) {
     }
 }
 
-
-export function rinse_timeAction(rinse_time) {
-    return {
-        type: 'rinse_timeAction',
-        rinse_time
-    }
-}
-
-export function volumeAction(volume) {
-    return {
-        type: 'volumeAction',
-        volume
-    }
-}
 
 

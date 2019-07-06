@@ -7,7 +7,7 @@ let init_device_props = {
     time_remain: "0048",  // 0098
     child_lock: "off",  // “on”/”off”
     fault: "NONE", // “NONE”/“_F”/“dF”/“tF”/“S...
-    rinse_time: "3",  // “1”/”2”/”3”/”4”/”5” /”6”
+
 };
 
 function mDevice(device_props = init_device_props, action) {
@@ -21,7 +21,6 @@ function mDevice(device_props = init_device_props, action) {
             cycle: action.cycle,
             time_remain: action.time_remain,
             child_lock: action.child_lock,
-            fault: action.fault,
         };
     } else if (action.type === "stateAction") {
         console.log('---> stateAction action.type ' + action.type +"  "+ action.state);
@@ -60,20 +59,7 @@ function mDevice(device_props = init_device_props, action) {
             fault: action.fault
         };
     }
-    else if (action.type === "rinse_timeAction") {
-        console.log('---> rinse_timeAction action.type ' + action.type +"  "+ action.rinse_time);
-        return {
-            ...device_props,
-            rinse_time: action.rinse_time
-        };
-    }
-    else if (action.type === "volumeAction") {
-        console.log('---> volumeAction action.type ' + action.type +"  "+ action.volume);
-        return {
-            ...device_props,
-            volume: action.volume
-        };
-    }
+
     else return { ...device_props };
 }
 

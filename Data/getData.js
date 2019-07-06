@@ -6,13 +6,9 @@ import {
     cycleAction,
     time_remainAction,
     child_lockAction,
-    rinse_timeAction,
     faultAction,
-    volumeAction,
-
 } from '../Redux/Actions';
 
-import WASH_MODES from './Mode_Wash';
 
 import Store from '../Redux/Store';
 
@@ -22,13 +18,10 @@ const propListFromDevice = [
     "cycle",
     "time_remain",
     "child_lock",
-    "volume"
 ];
 
 const propListFromCloud = [
-    'prop.rinse_time',
     'prop.fault',
-    //'prop.volume',
 ]
 
 /**
@@ -36,11 +29,12 @@ const propListFromCloud = [
  *
  */
 function getPropFromDevice() {
+
     Device.getDeviceWifi().callMethod('get_prop', propListFromDevice)
         .then(result => {
-             console.log("get_prop result: ", result);
+             console.log("设备获取属性get_prop result: ", result);
             if (result.code == 0) {
-                console.log('get_prop resultDevice<<<<<<<<<: ', result.result);
+                console.log('设备获取属性get_prop resultDevice<<<<<<<<<: ', result.result);
                 let resultArray = result.result;
                 if (resultArray.length === propListFromDevice.length) {
                     console.log('get_prop ok');
@@ -58,13 +52,14 @@ function getPropFromDevice() {
  *
  */
 function getPropFromCloud() {
+
     let params = {};
     let did = Device.deviceID;
     params.did = did;
     params.props = propListFromCloud;
     Service.smarthome.batchGetDeviceProps([params])
         .then(result => {
-            console.log('get_prop resultCloud<<<<<<<<<: ', result);
+            console.log('服务器获取属性get_prop resultCloud<<<<<<<<<: ', result);
             // 特殊异常处理，非本did设备不处理
             let res;
             let prop_key;
@@ -103,14 +98,6 @@ function getPropFromCloud() {
                             continue;
                         }
 
-                        if (prop_key === 'prop.rinse_time') {
-                            if (propList[prop_key] !== null){
-                                Store.dispatch(rinse_timeAction(propList[prop_key]));
-                            }else {
-                                Store.dispatch(rinse_timeAction(WASH_MODES['dailywash'].rinse_time));
-                            }
-                            continue;
-                        }
 
                         if (prop_key === 'prop.fault') {
                             if (propList[prop_key] !== null){
@@ -120,13 +107,6 @@ function getPropFromCloud() {
                             }
                             // console.log('fault key in getData: ', propList[prop_key]);
 
-                            continue;
-                        }if (prop_key === 'prop.volume') {
-                            if (propList[prop_key] !== null){
-                                Store.dispatch(volumeAction(propList[prop_key]));
-                            }else {
-                                Store.dispatch(volumeAction('1'));
-                            }
                             continue;
                         }
 
@@ -143,12 +123,14 @@ function getPropFromCloud() {
 var timer = null
 //10秒进行查询
 export function getDataInterval() {
+    console.log("执行getDataInterval");
     timer = setInterval(() => {
         getPropFromDevice();
         getPropFromCloud();
     }, 10000);
 }
 export function removeDataInterval() {
+    console.log("执行removeDataInterval");
     timer && timer.remove();
 }
 export function getDataOnce() {

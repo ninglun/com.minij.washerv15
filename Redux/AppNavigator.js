@@ -6,7 +6,7 @@ import ComponentWaterCostPage from '../Main/ComponentWaterCostPage';
 import ComponentWashMenuPage from '../Main/ComponentWashMenuPage';
 import ComponentMoreMenu from '../Main/ComponentMoreMenu';
 import ComponentOrderPage from '../Main/ComponentOrderPage';
-import {TitleBarWhite} from "miot/ui";
+
 
 const AppNavigator = createStackNavigator(
     {

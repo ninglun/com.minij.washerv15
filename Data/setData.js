@@ -1,27 +1,10 @@
 import { Device, Service } from 'miot';
 
-import WASH_MODES from './Mode_Wash';
 import {
     buttonAction,
-
     stateAction,
-    // processAction,
     cycleAction,
-    // time_remainAction,
     child_lockAction,
-
-    // time_totalAction,
-    // delay_real_timeAction,
-    // speedAction,
-    // tempAction,
-    // water_levelAction,
-    // rinse_timeAction,
-    // extra_timeAction,
-    // faultAction,
-    // volumeAction,
-    // panelAction,
-    // dirty_typeAction,
-    // dirty_levelAction
 } from '../Redux/Actions';
 
 import Store from '../Redux/Store';
